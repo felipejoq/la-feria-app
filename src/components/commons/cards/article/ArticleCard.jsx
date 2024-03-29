@@ -1,11 +1,12 @@
 import {Card} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import {formatCLPCurrency} from "../../../../utils/formatters/currencies.format.js";
 
 export const ArticleCard = ({article}) => {
   return (
     <Card className='col-12 col-sm-6 col-lg-4 col-xl-3 my-3'>
       <Link to={`/article/${article.slug}`} className='position-relative'>
-        <span className='price-card-article'>{article.price}</span>
+        <span className='price-card-article'>{formatCLPCurrency({ value: article.price })}</span>
         <Card.Img variant="top" src={article.images[0].url_img} className='hover-effect'/>
       </Link>
       <Card.Body>
