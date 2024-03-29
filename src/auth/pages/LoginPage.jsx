@@ -8,7 +8,7 @@ import {useLocalStorage} from "../../hooks/useLocalStorage.js";
 export const LoginPage = () => {
 
   const [isBadLogin, setIsBadLogin] = useState(false);
-  const [login, setLogin] = useState({email: 'felipe@test.', password: '123123'});
+  const [login, setLogin] = useState({email: 'felipe@test.com', password: '123123'});
   const [validated, setValidated] = useState(false);
 
   const {setLogged} = useContext(GlobalContext);
