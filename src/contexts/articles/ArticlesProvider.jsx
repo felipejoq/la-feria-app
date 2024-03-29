@@ -3,16 +3,25 @@ import {useArticles} from "../../hooks/useArticles.js";
 
 export const ArticlesProvider = ({children}) => {
 
-  const {articles, navigation, prevPage, nextPage, loading, createArticle} = useArticles({page: 1, limit: 4});
+  const {
+    articles,
+    navigation,
+    loading,
+    getArticleBySlug,
+    createArticle,
+    prevPage,
+    nextPage
+  } = useArticles({page: 1, limit: 4});
 
   return (
     <ArticlesContext.Provider value={{
       articles,
       navigation,
+      loading,
+      getArticleBySlug,
+      createArticle,
       prevPage,
       nextPage,
-      loading,
-      createArticle
     }}>
       {children}
     </ArticlesContext.Provider>

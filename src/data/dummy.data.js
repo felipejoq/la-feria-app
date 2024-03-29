@@ -255,6 +255,7 @@ export const users = [
   {
     "id": 1,
     "name": "Felipe",
+    "password": "123123",
     "email": "felipe@test.com",
     "image": "https://blog.uncodigo.com/wp-content/uploads/2023/12/profile.png",
     "active": true,

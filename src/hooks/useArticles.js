@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import {ArticlesService} from "../services/articles.service.js";
 import {useSearchParams} from "react-router-dom";
-import {useLocalStorage} from "./useLocalStorage.js";
 
 export const useArticles = ({page, limit}) => {
 
@@ -9,6 +8,13 @@ export const useArticles = ({page, limit}) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [articles, setArticles] = useState([]);
   const [navigation, setNavigation] = useState({ page , limit });
+
+  const getArticleBySlug = async ({slug}) => {
+    setLoading(true);
+    const article = await ArticlesService.getArticleBySlug({slug});
+    setLoading(false);
+    return article;
+  }
 
   const createArticle = async ({article}) => {
     setLoading(true);
@@ -48,6 +54,7 @@ export const useArticles = ({page, limit}) => {
     navigation,
     articles,
     loading,
+    getArticleBySlug,
     createArticle,
     nextPage,
     prevPage,
