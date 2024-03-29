@@ -12,8 +12,11 @@ export class AuthService {
   }
 
   static async login({email, password}) {
-    const user = users.find(user => user.email === email.toLowerCase());
-    localStorage.setItem('user', JSON.stringify(user))
-    return user;
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const user = users.find(user => user.email === email && user.password === password);
+        resolve(user);
+      }, 1000);
+    })
   }
 }
