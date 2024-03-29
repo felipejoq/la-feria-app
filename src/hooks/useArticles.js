@@ -1,11 +1,9 @@
 import {useEffect, useState} from "react";
 import {ArticlesService} from "../services/articles.service.js";
-import {useSearchParams} from "react-router-dom";
 
 export const useArticles = ({page, limit}) => {
 
   const [loading, setLoading] = useState(true);
-  const [searchParams, setSearchParams] = useSearchParams();
   const [articles, setArticles] = useState([]);
   const [navigation, setNavigation] = useState({ page , limit });
 
@@ -41,7 +39,6 @@ export const useArticles = ({page, limit}) => {
   };
 
   useEffect(() => {
-    setSearchParams(navigation);
     (async () => {
       setLoading(true);
       const articlesData = await ArticlesService.getArticles(navigation);
