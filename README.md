@@ -21,4 +21,3 @@ Para ingresar a la aplicación y crear publicaciones de pruebas solo debe comple
 
 ### 📸 Capturas de pantalla
 ![Vista previa del home](preview.png)
-Congrats 🙌 ✅
