@@ -1,33 +1,33 @@
-import { Route, Routes } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 
-import { PrivateRoute } from './PrivateRoute';
-import { PublicRoute } from './PublicRoute';
+import {PrivateRoute} from './PrivateRoute';
+import {PublicRoute} from './PublicRoute';
 
-import { LoginPage } from '../auth/pages/LoginPage';
-import { HomeRoutes } from '../home/routes/HomeRoutes';
-import { DashboardRoute } from '../dashboard/routes/DashboardRoute';
+import {HomeRoutes} from '../home/routes/HomeRoutes';
+import {DashboardRoute} from '../dashboard/routes/DashboardRoute.jsx';
+import {Header} from "../components/commons/header/Header.jsx";
+import {Footer} from "../components/commons/footer/Footer.jsx";
+import {AuthRoute} from "../auth/routes/AuthRoute.jsx";
 
 export const AppRouter = () => {
   return (
     <>
+      <Header/>
       <Routes>
-
-        <Route path="/*" element={
+        <Route path="/*" element={<HomeRoutes/>}/>
+        <Route path="auth/*" element={
           <PublicRoute>
-            <Routes>
-              <Route path="login/*" element={<LoginPage />} />
-              <Route path="/*" element={<HomeRoutes />} />
-            </Routes>
+            <AuthRoute />
           </PublicRoute>
         }
         />
-
         <Route path="dashboard/*" element={
           <PrivateRoute>
-            <DashboardRoute />
+            <DashboardRoute/>
           </PrivateRoute>
-        } />
+        }/>
       </Routes>
+      <Footer/>
     </>
   )
 }

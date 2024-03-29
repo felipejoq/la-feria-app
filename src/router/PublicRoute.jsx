@@ -1,8 +1,12 @@
-import { Navigate } from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
+import {useContext} from "react";
+import {GlobalContext} from "../contexts/global/GlobalContext.js";
 
-export const PublicRoute = ({ children }) => {
+export const PublicRoute = ({children}) => {
 
-    return (true) // !logged
-        ? children
-        : <Navigate to="/" />
+  const {logged} = useContext(GlobalContext);
+
+  return (!logged) // !logged
+    ? children
+    : <Navigate to="/"/>
 }
