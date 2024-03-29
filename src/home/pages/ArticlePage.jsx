@@ -3,6 +3,7 @@ import {useContext, useEffect, useState} from "react";
 import {Card} from "react-bootstrap";
 import {Separator} from "../../components/commons/utils/Separator.jsx";
 import {ArticlesContext} from "../../contexts/articles/ArticlesContex.js";
+import {formatCLPCurrency} from "../../utils/formatters/currencies.format.js";
 
 export const ArticlePage = () => {
 
@@ -28,7 +29,7 @@ export const ArticlePage = () => {
                 <Separator></Separator>
                 <div className='position-relative'>
                   <div className='details-card-article-single'>
-                    <span className='tag-card-article-single'>{article.price}</span>
+                    <span className='tag-card-article-single'>{formatCLPCurrency({value: article.price})}</span>
                     {article.new && <span className='tag-card-article-single'>Nuevo</span>}
                   </div>
                   <Card.Img variant="top" src={article.images[0].url_img} className=''/>
