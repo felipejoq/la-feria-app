@@ -4,6 +4,7 @@ import {Card} from "react-bootstrap";
 import {Separator} from "../../components/commons/utils/Separator.jsx";
 import {ArticlesContext} from "../../contexts/articles/ArticlesContex.js";
 import {formatCLPCurrency} from "../../utils/formatters/currencies.format.js";
+import {Loading} from "../../components/commons/utils/Loading.jsx";
 
 export const ArticlePage = () => {
 
@@ -21,7 +22,7 @@ export const ArticlePage = () => {
     <div className='container'>
       {
         loading
-          ? <h1 className='text-primary-color my-4 text-center'>Cargando...</h1> :
+          ? <Loading /> :
           article && <div className='row'>
             <div className='col-12 col-sm-12 col-lg-8 mt-4 mb-3'>
               <div className="special-card bg-secondary-color-2 p-3">
