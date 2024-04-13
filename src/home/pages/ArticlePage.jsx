@@ -33,7 +33,7 @@ export const ArticlePage = () => {
                     <span className='tag-card-article-single'>{formatCLPCurrency({value: article.price})}</span>
                     {article.new && <span className='tag-card-article-single'>Nuevo</span>}
                   </div>
-                  <Card.Img variant="top" src={article.images[0].url_img} className=''/>
+                  <Card.Img variant="top" src={article?.article_images[0]?.url_img} className=''/>
                 </div>
                 <div className='my-4 fs-5'>
                   {article.description}

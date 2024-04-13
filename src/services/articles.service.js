@@ -1,5 +1,6 @@
 import {articles} from "../data/dummy.data.js";
 import {AuthService} from "./auth.service.js";
+import AxiosInterceptor from "../utils/api/axios.api.js";
 
 export class ArticlesService {
 
@@ -35,21 +36,16 @@ export class ArticlesService {
   }
 
   static async getArticles({page, limit}) {
-    if(!page || !limit) return this.ARTICLES;
-    const start = (page - 1) * limit;
-    const end = start + limit;
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(this.ARTICLES.slice(start, end));
-      }, 1000);
-    });
+    if (!page || !limit) return this.ARTICLES;
+    const params= {
+      page,
+      limit
+    }
+    return AxiosInterceptor.get('/api/v1/article', { params });
+
   }
 
   static async getArticleBySlug({slug}) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(this.ARTICLES.find(article => article.slug === slug));
-      }, 1000);
-    });
+    return AxiosInterceptor.get(`/api/v1/article/${slug}`);
   }
 }
