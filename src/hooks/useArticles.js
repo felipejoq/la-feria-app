@@ -5,11 +5,11 @@ export const useArticles = ({page, limit}) => {
 
   const [loading, setLoading] = useState(true);
   const [articles, setArticles] = useState([]);
-  const [navigation, setNavigation] = useState({ page , limit });
+  const [navigation, setNavigation] = useState({page, limit});
 
   const getArticleBySlug = async ({slug}) => {
     setLoading(true);
-    const article = await ArticlesService.getArticleBySlug({slug});
+    const {data: article} = await ArticlesService.getArticleBySlug({slug});
     setLoading(false);
     return article;
   }
@@ -41,8 +41,8 @@ export const useArticles = ({page, limit}) => {
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const articlesData = await ArticlesService.getArticles(navigation);
-      setArticles(articlesData);
+      const {data: {articles}} = await ArticlesService.getArticles(navigation);
+      setArticles(articles);
       setLoading(false);
     })();
   }, [navigation]);

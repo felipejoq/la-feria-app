@@ -1,22 +1,16 @@
-import {users} from "../data/dummy.data.js";
+import AxiosInterceptor from "../utils/api/axios.api.js";
 
 export class AuthService {
 
   static async getUserById({id}) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const user = users.find(user => user.id === id);
-        resolve(user);
-      }, 1000);
-    });
+    return AxiosInterceptor.get(`/api/v1/user/${id}`);
   }
 
   static async login({email, password}) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const user = users.find(user => user.email === email && user.password === password);
-        resolve(user);
-      }, 1000);
-    })
+    return AxiosInterceptor.post('/api/v1/user/login', {email, password});
+  }
+
+  static async register({name, email, password}) {
+    return AxiosInterceptor.post('/api/v1/user/register', {name, email, password});
   }
 }
