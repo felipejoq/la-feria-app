@@ -1,19 +1,13 @@
 import {Jumbotron} from "../../components/commons/jumbotron/Jumbotron.jsx";
 import {Alert, Button, Form} from "react-bootstrap";
-import {useContext, useState} from "react";
-import {GlobalContext} from "../../contexts/global/GlobalContext.js";
-import {AuthService} from "../../services/auth.service.js";
-import {useLocalStorage} from "../../hooks/useLocalStorage.js";
+import {useState} from "react";
+import {useLogin} from "../../hooks/useLogin.js";
 
 export const LoginPage = () => {
 
-  const [isBadLogin, setIsBadLogin] = useState(false);
+  const {setUserLogin, loading, feedback} = useLogin();
   const [login, setLogin] = useState({email: 'felipe@test.com', password: '123123'});
   const [validated, setValidated] = useState(false);
-
-  const {setLogged} = useContext(GlobalContext);
-
-  const {setDataLocalStorage} = useLocalStorage();
 
   const handleLogin = ({target}) => {
     const {name, value} = target;
@@ -29,12 +23,7 @@ export const LoginPage = () => {
     if (form.checkValidity()) {
       event.preventDefault();
       event.stopPropagation();
-      setIsBadLogin(false);
-      AuthService.login(login)
-        .then(user => {
-          setLogged(true);
-          setDataLocalStorage({key: 'user', data: user})
-        })
+      setUserLogin({login});
       return;
     }
     setValidated(true);
@@ -47,7 +36,8 @@ export const LoginPage = () => {
         <article className='special-card bg-secondary-color text-center col-12 col-sm-12 col-lg-4 p-4'>
           <h2 className='text-primary-color text-uppercase mb-4'>Iniciar Sesión</h2>
           <Form noValidate validated={validated} onSubmit={handleSubmit} className='d-flex flex-column gap-3'>
-            {isBadLogin && <Alert variant='warning'>Usuario o contraseña incorrecto</Alert>}
+            { loading && <Alert variant='info'>Cargando...</Alert> }
+            { feedback.status && <Alert variant='warning'>{ feedback.message }</Alert> }
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Control
                 value={login.email}
