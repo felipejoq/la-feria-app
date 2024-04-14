@@ -7,6 +7,7 @@ import {formatCLPCurrency} from "../../utils/formatters/currencies.format.js";
 import {Loading} from "../../components/commons/utils/Loading.jsx";
 import {formatDate} from "../../utils/formatters/dates.format.js";
 import {capitalize} from "../../utils/formatters/strings.format.js";
+import {FavoriteButton} from "../../components/commons/utils/FavoriteButton.jsx";
 
 export const ArticlePage = () => {
 
@@ -37,7 +38,8 @@ export const ArticlePage = () => {
                 <h2>{article.title}</h2>
                 <Separator></Separator>
                 <div className='position-relative'>
-                  <div className='details-card-article-single'>
+                  <div className='details-card-article-single d-flex justify-content-center align-items-center'>
+                    <FavoriteButton article={article}/>
                     <span className='tag-card-article-single'>{formatCLPCurrency({value: article.price})}</span>
                     {article.new && <span className='tag-card-article-single'>Nuevo</span>}
                   </div>

@@ -6,8 +6,13 @@ export const useArticles = ({page, limit}) => {
 
   const [loading, setLoading] = useState(true);
   const [articles, setArticles] = useState([]);
+  const [favArticles, setFavArticles] = useState([]);
   const [navigation, setNavigation] = useState({page, limit});
   const [categories, setCategories] = useState([]);
+
+  const addArticleToFav = ({article}) => {
+    setFavArticles((prevFavArticles) => [article, ...prevFavArticles]);
+  }
 
   const getCategories = async () => {
     setLoading(true);
@@ -57,6 +62,18 @@ export const useArticles = ({page, limit}) => {
     }
   }
 
+  const getArticlesByUserId = async ({userId, page, limit}) => {
+    try {
+      setLoading(true);
+      const {data: {articles}} = await ArticlesService.getArticlesByUserId({userId, page, limit});
+      setLoading(false);
+      return articles;
+    } catch (error) {
+      setLoading(false);
+      throw error;
+    }
+  }
+
   const nextPage = () => {
     setNavigation((prevNavigation) => ({
       ...prevNavigation,
@@ -86,6 +103,9 @@ export const useArticles = ({page, limit}) => {
     articles,
     loading,
     categories,
+    favArticles,
+    addArticleToFav,
+    getArticlesByUserId,
     getArticlesByTerm,
     getCategories,
     getArticleBySlug,

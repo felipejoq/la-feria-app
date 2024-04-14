@@ -38,6 +38,9 @@ export const NavBarLinks = () => {
               <NavLink to="/dashboard" className={`nav-link text-primary-color`}>
                 Publicar
               </NavLink>
+              <NavLink to="/dashboard/my-posts" className={`nav-link text-primary-color`}>
+                Mis posts
+              </NavLink>
               <Nav.Link onClick={handleLogout} className={`nav-link text-primary-color`}>
                 Logout
               </Nav.Link>
