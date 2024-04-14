@@ -16,15 +16,15 @@ export const SearchPage = () => {
 
   useEffect(() => {
     let timer;
-
-    setTermValue(prevState => {
-      if (prevState !== searchParams.get('term')) {
-        return searchParams.get('term');
-      }
-      return prevState;
-    });
-    setLoading(true);
     if (searchParams.has('term')) {
+      setTermValue(prevState => {
+        if (prevState !== searchParams.get('term')) {
+          return searchParams.get('term');
+        }
+        return prevState;
+      });
+      setLoading(true);
+
       timer = setTimeout(() => {
         (async () => {
           await searchByTerm();
