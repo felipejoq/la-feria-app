@@ -28,6 +28,18 @@ export const useArticles = ({page, limit}) => {
     }
   }
 
+  const getArticlesByTerm = async ({term}) => {
+    try {
+      setLoading(true);
+      const {data: {articles}} = await ArticlesService.getArticlesByTerm({term});
+      setLoading(false);
+      return articles;
+    } catch (error) {
+      setLoading(false);
+      throw error;
+    }
+  }
+
   const createArticle = async ({article}) => {
     try {
       setLoading(true);
@@ -74,6 +86,7 @@ export const useArticles = ({page, limit}) => {
     articles,
     loading,
     categories,
+    getArticlesByTerm,
     getCategories,
     getArticleBySlug,
     createArticle,
