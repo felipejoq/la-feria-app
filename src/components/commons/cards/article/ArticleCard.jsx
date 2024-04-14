@@ -1,6 +1,8 @@
-import {Card} from "react-bootstrap";
+import {Badge, Card} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {formatCLPCurrency} from "../../../../utils/formatters/currencies.format.js";
+import {formatDate} from "../../../../utils/formatters/dates.format.js";
+import {capitalize} from "../../../../utils/formatters/strings.format.js";
 
 export const ArticleCard = ({article}) => {
   return (
@@ -17,7 +19,13 @@ export const ArticleCard = ({article}) => {
           {article.description}
         </Card.Text>
       </Card.Body>
-      <Card.Footer className='footer-card text-uppercase d-flex justify-content-end gap-2 roboto-bold'>
+      <Card.Footer>
+        <Card.Text className='d-flex justify-content-center gap-3 align-self-end'>
+          <small className='text-muted'>{formatDate({date: article?.created_at})}</small>
+          <Badge bg='primary'><i className="bi bi-tags-fill"></i> {capitalize({str: article?.category?.title})}</Badge>
+        </Card.Text>
+      </Card.Footer>
+      <Card.Footer className='footer-card text-uppercase d-flex justify-content-center gap-2 roboto-bold'>
         <Link to={`/article/${article.slug}`}>
           <i className="bi bi-arrow-right-circle-fill"></i> ver más
         </Link>

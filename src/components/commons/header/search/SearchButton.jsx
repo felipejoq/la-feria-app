@@ -1,7 +1,11 @@
+import {Link} from "react-router-dom";
+
 export const SearchButton = () => {
+
+
   return (
-    <div className="search-btn">
+    <Link to={'/article/search'} className="search-btn">
       <i className="bi bi-search"></i>
-    </div>
+    </Link>
   );
 };

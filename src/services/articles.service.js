@@ -13,6 +13,14 @@ export class ArticlesService {
     }
   }
 
+  static async getArticlesByTerm({term, page, limit}) {
+    try {
+      return AxiosInterceptor.get('/api/v1/article/search', { params: { term, page, limit } });
+    } catch (error) {
+      return error;
+    }
+  }
+
   static async getArticles({page = 1, limit = 0}) {
     try {
       if (!page || !limit) return this.ARTICLES;
