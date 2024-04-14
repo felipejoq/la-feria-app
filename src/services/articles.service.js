@@ -1,9 +1,6 @@
-import {articles} from "../data/dummy.data.js";
 import AxiosInterceptor from "../utils/api/axios.api.js";
 
 export class ArticlesService {
-
-  static ARTICLES = [...articles];
 
   static async createArticle({article}) {
     try {
@@ -23,12 +20,19 @@ export class ArticlesService {
 
   static async getArticles({page = 1, limit = 0}) {
     try {
-      if (!page || !limit) return this.ARTICLES;
       const params= {
         page,
         limit
       }
       return AxiosInterceptor.get('/api/v1/article', { params });
+    } catch (error) {
+      return error;
+    }
+  }
+
+  static async getArticlesByUserId({userId, page = 1, limit = 10}) {
+    try {
+      return AxiosInterceptor.get(`/api/v1/article/user/${userId}`, { params: { page, limit } });
     } catch (error) {
       return error;
     }
