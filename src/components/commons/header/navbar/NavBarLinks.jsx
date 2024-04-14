@@ -1,14 +1,13 @@
 import {Nav, Navbar} from "react-bootstrap";
-import {Link, NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {SearchButton} from "../search/SearchButton.jsx";
 import {useContext} from "react";
 import {GlobalContext} from "../../../../contexts/global/GlobalContext.js";
 import {useLocalStorage} from "../../../../hooks/useLocalStorage.js";
-import {act} from "react-dom/test-utils";
 
 export const NavBarLinks = () => {
 
-  const {logged, setLogged} = useContext(GlobalContext);
+  const {logged, setLogged, user} = useContext(GlobalContext);
   const {clearLocalStorage} = useLocalStorage();
 
   const handleLogout = () => {
@@ -19,12 +18,12 @@ export const NavBarLinks = () => {
   return (
     <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
       <Nav className='roboto-medium text-uppercase gap-3 align-items-center fs-5'>
-        <NavLink to="/" className={`nav-link text-primary-color`}>
-          Home
-        </NavLink>
         {
           !logged
             ? <>
+              <NavLink to="/" className={`nav-link text-primary-color`}>
+                Home
+              </NavLink>
               <NavLink to="/auth/login" className={`nav-link text-primary-color`}>
                 Login
               </NavLink>
@@ -33,6 +32,9 @@ export const NavBarLinks = () => {
               </NavLink>
             </>
             : <>
+              <div className={`nav-link text-primary-color`}>
+                Hola, {user.name}!
+              </div>
               <NavLink to="/dashboard" className={`nav-link text-primary-color`}>
                 Publicar
               </NavLink>
