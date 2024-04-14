@@ -10,20 +10,26 @@ export const ArticlePage = () => {
 
   const {getArticleBySlug, loading} = useContext(ArticlesContext);
   const [article, setArticle] = useState(null);
+  const [error, setError] = useState('');
   const {slug} = useParams();
 
   useEffect(() => {
-    getArticleBySlug({slug}).then(article => {
-      setArticle(article);
-    });
+    getArticleBySlug({slug})
+      .then(article => {
+        setArticle(article);
+      })
+      .catch(error => {
+        console.error('Error al obtener el artículo', error);
+        setError(JSON.stringify(error));
+      });
   }, [slug]);
 
   return (
     <div className='container'>
       {
         loading
-          ? <Loading /> :
-          article && <div className='row'>
+          ? <Loading/> :
+          !article || error ? <div className='alert alert-warning'>{error}</div> : <div className='row'>
             <div className='col-12 col-sm-12 col-lg-8 mt-4 mb-3'>
               <div className="special-card bg-secondary-color-2 p-3">
                 <h2>{article.title}</h2>
@@ -43,13 +49,13 @@ export const ArticlePage = () => {
             <div className='col-12 col-sm-12 col-lg-4 mt-4'>
               <div className='special-card bg-secondary-color-2 row p-2'>
                 <div className='col-5 col-sm-4'>
-                  <img className='avatar-article w-100 object-fit-contain' src={article?.user?.image}
-                       alt={article?.user?.name}/>
+                  <img className='avatar-article w-100 object-fit-contain' src={article?.author?.image}
+                       alt={article?.author?.name}/>
                 </div>
                 <div className='col-6 col-sm-8'>
                   <div className='row'>
-                    <h3 className='col-12'>{article?.user?.name}</h3>
-                    <p className='col-12'>{article?.user?.email}</p>
+                    <h3 className='col-12'>{article?.author?.name}</h3>
+                    <p className='col-12'>{article?.author?.email}</p>
                   </div>
                   <div className='row'>
                     <div className='col-6 col-sm-4 col-lg-6 col-xl-6'>
