@@ -1,27 +1,48 @@
 import {useEffect, useState} from "react";
 import {ArticlesService} from "../services/articles.service.js";
+import {CategoriesService} from "../services/categories.service.js";
 
 export const useArticles = ({page, limit}) => {
 
   const [loading, setLoading] = useState(true);
   const [articles, setArticles] = useState([]);
   const [navigation, setNavigation] = useState({page, limit});
+  const [categories, setCategories] = useState([]);
+
+  const getCategories = async () => {
+    setLoading(true);
+    const {data: categories} = await CategoriesService.getAllCategories();
+    setCategories(categories);
+    setLoading(false);
+  }
 
   const getArticleBySlug = async ({slug}) => {
-    setLoading(true);
-    const {data: article} = await ArticlesService.getArticleBySlug({slug});
-    setLoading(false);
-    return article;
+    try {
+      setLoading(true);
+      const {data: article} = await ArticlesService.getArticleBySlug({slug});
+      setLoading(false);
+      return article;
+    } catch (error) {
+      setLoading(false);
+      throw error;
+    }
   }
 
   const createArticle = async ({article}) => {
-    setLoading(true);
-    const result = await ArticlesService.createArticle({article});
-    const articlesList = await ArticlesService.getArticles(navigation);
-    setLoading(false);
-    console.log(articlesList.length)
-    setArticles([...articlesList]);
-    return result;
+    try {
+      setLoading(true);
+
+      const {data: newArticle} = await ArticlesService.createArticle({article})
+      const {data: {articles: articlesList}} = await ArticlesService.getArticles(navigation)
+
+      console.log({articles: articlesList})
+      setArticles([...articlesList]);
+      setLoading(false);
+      return newArticle;
+    } catch (error) {
+      setLoading(false);
+      throw error;
+    }
   }
 
   const nextPage = () => {
@@ -42,6 +63,7 @@ export const useArticles = ({page, limit}) => {
     (async () => {
       setLoading(true);
       const {data: {articles}} = await ArticlesService.getArticles(navigation);
+      await getCategories();
       setArticles(articles);
       setLoading(false);
     })();
@@ -51,6 +73,8 @@ export const useArticles = ({page, limit}) => {
     navigation,
     articles,
     loading,
+    categories,
+    getCategories,
     getArticleBySlug,
     createArticle,
     nextPage,
