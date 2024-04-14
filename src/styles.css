@@ -237,6 +237,15 @@
     text-align: center;
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
+#basic-search-btn:hover {
+    color: #2763D5!important;
+    background-color: #A1D0FD;
+}
+
 @media (max-width: 768px) {
     .fs-90 {
         font-size: 50px;

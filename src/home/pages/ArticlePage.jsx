@@ -1,10 +1,12 @@
 import {useParams} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
-import {Card} from "react-bootstrap";
+import {Badge, Card} from "react-bootstrap";
 import {Separator} from "../../components/commons/utils/Separator.jsx";
 import {ArticlesContext} from "../../contexts/articles/ArticlesContex.js";
 import {formatCLPCurrency} from "../../utils/formatters/currencies.format.js";
 import {Loading} from "../../components/commons/utils/Loading.jsx";
+import {formatDate} from "../../utils/formatters/dates.format.js";
+import {capitalize} from "../../utils/formatters/strings.format.js";
 
 export const ArticlePage = () => {
 
@@ -43,6 +45,10 @@ export const ArticlePage = () => {
                 </div>
                 <div className='my-4 fs-5'>
                   {article.description}
+                </div>
+                <div className='d-flex justify-content-end gap-2'>
+                  <Badge bg="primary">Categoría: {capitalize({str: article?.category?.title})}</Badge>
+                  <Badge bg="secondary">{formatDate({date: article?.created_at})}</Badge>
                 </div>
               </div>
             </div>
