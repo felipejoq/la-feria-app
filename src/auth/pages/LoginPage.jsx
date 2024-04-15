@@ -6,7 +6,7 @@ import {useLogin} from "../../hooks/useLogin.js";
 export const LoginPage = () => {
 
   const {setUserLogin, loading, feedback} = useLogin();
-  const [login, setLogin] = useState({email: 'felipe@test.com', password: '123123'});
+  const [login, setLogin] = useState({email: '', password: ''});
   const [validated, setValidated] = useState(false);
 
   const handleLogin = ({target}) => {
